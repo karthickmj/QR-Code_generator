@@ -1,6 +1,7 @@
 import qrcode
 import logging
 from logging.handlers import RotatingFileHandler
+import os
 
 # Logging configuration
 logging.basicConfig(level=logging.INFO,
@@ -29,9 +30,11 @@ try:
 
     # convert into image
     img = qr.make_image(fill_color="red", back_color="white")
-    img.save("url_qrcode.png")
+    url_safe_name = os.path.basename(input_URL).replace('http://', '').replace('https://', '').replace('/', '_')
+    file_name = f"{url_safe_name}_qrcode.png"
+    img.save(file_name)
 
-    logging.info('QR code image successfully created.')
+    logging.info(f'QR code image successfully created: {file_name}')
 except Exception as e:
     logging.error('An error occurred during QR code generation: %s', str(e))
 
