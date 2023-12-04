@@ -20,8 +20,12 @@ try:
         border=4,
     )
 
+    logging.debug('QR code configuration set.')
+
     qr.add_data(input_URL)
     qr.make(fit=True)
+
+    logging.debug('QR code data added and fit to size.')
 
     # convert into image
     img = qr.make_image(fill_color="red", back_color="white")
@@ -31,4 +35,5 @@ try:
 except Exception as e:
     logging.error('An error occurred during QR code generation: %s', str(e))
 
+logging.debug('QR code data list: %s', qr.data_list)
 print(qr.data_list)
